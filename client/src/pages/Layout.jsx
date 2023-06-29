@@ -4,7 +4,7 @@ function Layout() {
 
 
   return (
-    <div className="">
+    <div className="m-2 p-5 border rounded">
       <Outlet />
     </div>
   );
