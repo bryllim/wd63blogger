@@ -33,6 +33,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'token' => $token,
+                'user_id' => $user->id,
                 'success' => true,
             ]);
         }else{
@@ -42,5 +43,10 @@ class AuthController extends Controller
             ]);
         }
         
+    }
+
+    public function getuser(Request $request){
+        $user = User::find($request->user_id);
+        return response()->json($user);
     }
 }

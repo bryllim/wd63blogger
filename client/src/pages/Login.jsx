@@ -1,33 +1,37 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      window.location.href = "/home";
+    }
+  }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const response = await fetch('http://127.0.0.1:8000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            email,
-            password
-        })
+    const response = await fetch("http://127.0.0.1:8000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
     });
 
     const data = await response.json();
-    alert(data.success);
-    if(data.success){
-        localStorage.setItem('token', data.token);
-        window.location.href="/home";
-    }else{
-        alert("Login failed!");
+    if (data.success) {
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user_id", data.user_id);
+      window.location.href = "/home";
+    } else {
+      alert("Login failed!");
     }
-    
-  }
+  };
 
   return (
     <>
@@ -49,7 +53,9 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <button type="submit" className="btn btn-dark mt-3">Login</button>
+        <button type="submit" className="btn btn-dark mt-3">
+          Login
+        </button>
         <Link to="/register" className="ms-3 align-middle">
           Create an account
         </Link>

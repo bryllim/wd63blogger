@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Register() {
   const [name, setName] = useState("");
@@ -7,6 +7,12 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(()=>{
+        if (localStorage.getItem("token") !== null) {
+            window.location.href="/home";
+        }
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
