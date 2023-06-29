@@ -1,8 +1,6 @@
-const Login = () => {
+function Login(){
     return(
-        <h1 className="text-dark">
-            Login
-        </h1>
+        <h1>This is the Login page.</h1>
     )
 }
 
